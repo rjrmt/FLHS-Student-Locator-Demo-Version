@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FLHS Testing</title>
+  <meta name="description" content="Fort Lauderdale High School testing tools and room locator" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e5a8f 0%, #0c3b66 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 420px;
+      width: 100%;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    .logo {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 24px;
+      display: block;
+    }
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+      color: #1e5a8f;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 32px;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, #2E75B6 0%, #1e5a8f 100%);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(46, 117, 182, 0.4);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 117, 182, 0.5);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .btn-icon {
+      font-size: 20px;
+    }
+    .btn-arrow {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 11px;
+      color: #999;
+    }
+    .footer a {
+      color: #2E75B6;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .footer a:hover {
+      color: #1e5a8f;
+      text-decoration: underline;
+    }
+    @media (max-width: 480px) {
+      .container { padding: 32px 24px; }
+      .logo { width: 80px; height: 80px; }
+      h1 { font-size: 24px; margin-bottom: 4px; }
+      .subtitle { font-size: 13px; margin-bottom: 24px; }
+      .btn { padding: 16px 18px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="assets/logo.png" alt="FLHS" class="logo">
+    <h1>FLHS Testing</h1>
+    <p class="subtitle">Fort Lauderdale High School</p>
+    <div class="menu">
+      <a class="btn" href="pages/locator.html">
+        <span class="btn-icon">🔎</span>
+        <span>Test Room Locator</span>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a class="btn" href="pages/room-changes.html">
+        <span class="btn-icon">📍</span>
+        <span>Room Changes</span>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a class="btn" href="https://bluebook.collegeboard.org/students/download-bluebook" target="_blank">
+        <span class="btn-icon">🧰</span>
+        <span>Bluebook Download</span>
+        <span class="btn-arrow">↗</span>
+      </a>
+    </div>
+    <div class="footer">designed by <a href="https://www.linkedin.com/in/rjrmt" target="_blank" rel="noopener">RJ</a></div>
+  </div>
+</body>
+</html>

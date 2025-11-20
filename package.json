@@ -1,0 +1,17 @@
+{
+  "name": "flhs-student-locator",
+  "version": "1.0.0",
+  "description": "Fort Lauderdale High School Testing Tools - Room locator and classroom relocation information",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=8080 --open=/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["flhs", "student-locator", "testing", "room-finder"],
+  "author": "RJ Ramautar",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

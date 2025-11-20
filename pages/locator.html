@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FLHS Room Locator</title>
+  <meta name="description" content="Find your testing room assignment" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e5a8f 0%, #0c3b66 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 16px;
+      display: block;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+      color: #1e5a8f;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+    }
+    .search-box {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .input {
+      width: 100%;
+      padding: 16px 20px;
+      background: #f8f9fa;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      color: #1a1a1a;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .input::placeholder {
+      color: #999;
+    }
+    .input:focus {
+      outline: none;
+      border-color: #2E75B6;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(46, 117, 182, 0.1);
+    }
+    .results {
+      display: none;
+      background: #f8f9fa;
+      border: 2px solid #2E75B6;
+      border-radius: 12px;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .results.show {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .field {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .field:last-child {
+      border-bottom: none;
+    }
+    .field-label {
+      font-size: 13px;
+      color: #666;
+      font-weight: 600;
+    }
+    .field-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2E75B6;
+    }
+    .field-value.highlight {
+      font-size: 17px;
+      color: #1e5a8f;
+      font-weight: 700;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid #2E75B6;
+    }
+    .info-item {
+      text-align: center;
+      background: #fff;
+      padding: 12px 8px;
+      border-radius: 10px;
+      border: 2px solid #2E75B6;
+    }
+    .info-label {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .info-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e5a8f;
+    }
+    .note {
+      margin-top: 16px;
+      padding: 12px;
+      background: #e3f2fd;
+      border: 1px solid #2E75B6;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #0c3b66;
+      text-align: center;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #2E75B6 0%, #1e5a8f 100%);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(46, 117, 182, 0.3);
+    }
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 117, 182, 0.4);
+    }
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 11px;
+      color: #999;
+    }
+    .footer a {
+      color: #2E75B6;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .footer a:hover {
+      color: #1e5a8f;
+      text-decoration: underline;
+    }
+    @media (max-width: 480px) {
+      .container { padding: 24px 20px; }
+      .logo { width: 60px; height: 60px; }
+      .field {
+        grid-template-columns: 80px 1fr;
+        gap: 10px;
+      }
+      .field-label { font-size: 12px; }
+      .field-value { font-size: 14px; }
+      .field-value.highlight { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="../assets/logo.png" alt="FLHS" class="logo">
+      <h1>Test Room Locator (Demo)</h1>
+      <p class="subtitle">Enter a demo student number (try 10001–10005)</p>
+    </div>
+
+    <div class="search-box">
+      <input id="sid" class="input" placeholder="Student Number (e.g., 10001)" inputmode="numeric" autocomplete="off" />
+    </div>
+
+    <div id="results" class="results">
+      <div class="field">
+        <span class="field-label">Name</span>
+        <span id="name" class="field-value highlight">—</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Grade</span>
+        <span id="grade" class="field-value">—</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Exam</span>
+        <span id="exam" class="field-value">—</span>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">Date</div>
+          <div id="date" class="info-value">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Time</div>
+          <div id="time" class="info-value">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Room</div>
+          <div id="room" class="info-value">—</div>
+        </div>
+      </div>
+
+      <div id="noteMessage" class="note">
+        💡 Screenshot this for your records
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn-back">
+      <span>←</span>
+      <span>Back</span>
+    </a>
+
+    <div class="footer">designed by <a href="https://www.linkedin.com/in/rjrmt" target="_blank" rel="noopener">RJ</a></div>
+  </div>
+
+  <script>
+    const CSV_URL = "../data/demo-data.csv";
+    let lookupMap = new Map();
+    
+    async function loadCSV() {
+      try {
+        const res = await fetch(CSV_URL, {cache:"no-store"});
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        const lines = text.trim().split(/\r?\n/);
+        if (lines.length < 2) throw new Error("Invalid CSV");
+        
+        const headers = lines.shift().split(",").map(h => h.replace(/^\uFEFF/,'').trim());
+        
+        lines.forEach(line => {
+          const vals = line.split(",").map(v => v.trim());
+          const obj = {};
+          headers.forEach((h,i)=> obj[h] = vals[i] || "");
+          if (obj["Local ID"]) {
+            lookupMap.set(obj["Local ID"].trim(), obj);
+          }
+        });
+      } catch (error) {
+        console.error("Failed to load CSV:", error);
+        document.getElementById("sid").placeholder = "Error loading data";
+      }
+    }
+    
+    
+    // Load demo CSV data on page load
+    loadCSV();
+    
+    function lookup(id) {
+      const resultsEl = document.getElementById("results");
+      if(!id) { 
+        resultsEl.classList.remove("show");
+        return; 
+      }
+      
+      // Easter egg!
+      if (String(id).trim() === "99999") {
+        const funNames = [
+          "The Legendary Flying Eagle 🦅✨",
+          "Master of All Tests 🧙‍♂️",
+          "The Chosen One 🌟",
+          "Supreme Scholar 📚👑",
+          "Academic Ninja 🥷💯"
+        ];
+        const funExams = [
+          "THE TEST OF PURE AWESOMENESS",
+          "EXTREME BRAIN POWER CHALLENGE",
+          "ULTIMATE WISDOM QUEST",
+          "LEGENDARY KNOWLEDGE SHOWDOWN",
+          "MEGA BRAIN CHAMPIONSHIP"
+        ];
+        const funRooms = [
+          "EVERYWHERE & NOWHERE 🌌",
+          "THE SECRET CHAMBER 🗝️",
+          "CLOUD 9 ☁️",
+          "THE MATRIX 💊",
+          "PARALLEL DIMENSION 🌈"
+        ];
+        const funMessages = [
+          "🎉 WOAH! You found the SECRET code! You're basically a hacker now! 💻✨",
+          "🏆 LEGENDARY! You've unlocked the hidden achievement! Pro student detected! 🎮",
+          "🌟 AMAZING! You discovered the Easter egg! You win... nothing! But bragging rights! 😎",
+          "🎊 BOOM! Secret code activated! You're now officially too cool for school! 🕶️",
+          "⭐ JACKPOT! You found it! Tell your friends you're a code-breaking genius! 🧠💥"
+        ];
+        
+        const randomName = funNames[Math.floor(Math.random() * funNames.length)];
+        const randomExam = funExams[Math.floor(Math.random() * funExams.length)];
+        const randomRoom = funRooms[Math.floor(Math.random() * funRooms.length)];
+        const randomMessage = funMessages[Math.floor(Math.random() * funMessages.length)];
+        
+        document.getElementById("name").textContent = randomName;
+        document.getElementById("grade").textContent = "LEVEL 💯";
+        document.getElementById("exam").textContent = randomExam;
+        document.getElementById("date").textContent = "∞/∞/∞";
+        document.getElementById("time").textContent = "24/7/365";
+        document.getElementById("room").textContent = randomRoom;
+        document.getElementById("noteMessage").innerHTML = randomMessage;
+        resultsEl.classList.add("show");
+        return;
+      }
+      
+      const result = lookupMap.get(String(id).trim());
+      if (result) {
+        // Demo student has exam registration
+        document.getElementById("name").textContent = `${result["First"]} ${result["Last"]}`;
+        document.getElementById("grade").textContent = result["Grade"] || "—";
+        document.getElementById("exam").textContent = result["FCLE"] || "—";
+        
+        // Parse date and time from FCLE DATE field
+        const dateStr = result["FCLE DATE"] || "—";
+        if (dateStr && dateStr !== "—") {
+          // Split date and time if format is like "11/18/25 7:00AM"
+          const parts = dateStr.split(" ");
+          if (parts.length >= 2) {
+            document.getElementById("date").textContent = parts[0]; // Just the date
+            document.getElementById("time").textContent = parts[1]; // Just the time
+          } else {
+            document.getElementById("date").textContent = dateStr;
+            document.getElementById("time").textContent = result["FCLE TIME"] || "—";
+          }
+        } else {
+          document.getElementById("date").textContent = "—";
+          document.getElementById("time").textContent = "—";
+        }
+        
+        document.getElementById("room").textContent = result["FCLE ROOM"] || "—";
+        document.getElementById("noteMessage").innerHTML = "💡 Screenshot this demo for your records";
+        resultsEl.classList.add("show");
+      } else {
+        // Demo: student not found in sample dataset
+        document.getElementById("name").textContent = "Not found in demo data";
+        document.getElementById("grade").textContent = "—";
+        document.getElementById("exam").textContent = "—";
+        document.getElementById("date").textContent = "—";
+        document.getElementById("time").textContent = "—";
+        document.getElementById("room").textContent = "—";
+        document.getElementById("noteMessage").innerHTML = "ℹ️ This is a demo. Try IDs 10001–10005 or connect your own data file in production.";
+        resultsEl.classList.add("show");
+      }
+    }
+    
+    let inputTimeout;
+    document.getElementById("sid").addEventListener("input", (e)=> {
+      clearTimeout(inputTimeout);
+      inputTimeout = setTimeout(() => lookup(e.target.value), 200);
+    });
+  </script>
+</body>
+</html>
