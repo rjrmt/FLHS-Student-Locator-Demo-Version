@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-active-success.svg)](#)
-[![Tech Stack](https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JS-orange.svg)](#)
+[![Tech Stack](https://img.shields.io/badge/stack-HTML-orange.svg)](#)
 [![Made for Education](https://img.shields.io/badge/focus-K12%20Education-purple.svg)](#)
 
 **FLHS Student Locator** is a lightweight web application designed to help Fort Lauderdale High School quickly locate students and manage classroom changes during testing windows.  
@@ -28,7 +28,7 @@ It is optimized for fast lookups, simple deployment, and ease of use by teachers
 
 ### Tech Stack
 
-- **Frontend**: HTML5, CSS3, vanilla JavaScript  
+- **Frontend**: HTML5 (static, no custom CSS/JS yet)  
 - **Data**: CSV file for student and room data  
 - **Tooling**: `live-server` for local development
 
