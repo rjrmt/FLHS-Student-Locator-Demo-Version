@@ -9,7 +9,7 @@
   },
   "keywords": ["flhs", "student-locator", "testing", "room-finder"],
   "author": "RJ Ramautar",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
     "live-server": "^1.2.2"

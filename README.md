@@ -1,65 +1,86 @@
-## FLHS Student Locator (Demo Version)
+## FLHS Student Locator – Testing Tools
 
-Fort Lauderdale High School Testing Tools – **demo** room locator and classroom relocation interface, sanitized for public portfolios (GitHub/LinkedIn) with no real student data.
+**FLHS Student Locator** is a lightweight web application designed to help Fort Lauderdale High School quickly locate students and manage classroom changes during testing windows.  
+It is optimized for fast lookups, simple deployment, and ease of use by teachers, proctors, and administrators.
 
-### 📁 Project Structure
+---
 
-```
-FLHS Student Locator (demo)/
-├── index.html                      # Main landing page
-├── assets/                         # Images and static assets
-│   └── logo.png                    # FLHS logo
-├── pages/                          # Application pages
-│   ├── locator.html                # Student room locator demo
-│   └── room-changes.html           # Sample room relocation information
-├── data/                           # Demo data files
-│   └── demo-data.csv               # Sample testing assignments (fake data)
-├── package.json                    # Project configuration
-├── package-lock.json              # Dependency lock file
-└── node_modules/                   # Dependencies
+### Features
 
-```
+- **Student Room Locator**  
+  Look up a student and instantly see their assigned testing room using the locator page.
 
-### 🚀 Getting Started
+- **Room Change Dashboard**  
+  View classroom relocations and updated testing locations on a dedicated room-changes page.
 
-### Prerequisites
-- Node.js installed on your system
+- **CSV-Driven Data**  
+  Student and room assignments are sourced from a CSV file (`data/demo-data.csv`), making it easy to update schedules without touching the code.
 
-### Installation
+- **Simple Static Deployment**  
+  The project runs as a static site (HTML, CSS, JavaScript) and can be hosted on any static host (e.g. Netlify, GitHub Pages, school web server).
+
+---
+
+### Tech Stack
+
+- **Frontend**: HTML5, CSS3, vanilla JavaScript  
+- **Data**: CSV file for student and room data  
+- **Tooling**: `live-server` for local development
+
+---
+
+### Project Structure
+
+- `index.html` – Landing page / entry point  
+- `pages/locator.html` – Student locator interface  
+- `pages/room-changes.html` – Classroom relocation / room changes view  
+- `data/demo-data.csv` – Sample data for testing and demonstration  
+- `assets/logo.png` – Fort Lauderdale High School branding asset  
+- `_headers` – Optional configuration for static hosting platforms (e.g. Netlify)  
+- `LICENSE` – MIT license for this project  
+- `package.json` – Project metadata and development scripts
+
+---
+
+### Getting Started (Local Development)
+
+**Prerequisites**
+
+- Node.js and npm installed on your machine
+
+**Install dependencies**
+
 ```bash
 npm install
 ```
 
-### Running the Application
+**Run the project locally**
+
 ```bash
 npm start
 ```
 
-This will start a local server on `http://localhost:8080` and automatically open the application in your browser.
-
-### 📋 Features
-
-- **Test Room Locator (Demo)**: Search by demo student number (e.g., `10001`–`10005`) to see a sample testing assignment
-- **Room Changes**: View a static example of classroom relocations for a test day
-- **Bluebook Download**: Quick link to College Board's Bluebook application
-
-## 📊 Data Files (Demo Only)
-
-- `data/demo-data.csv`: Contains **fake** testing assignments with fields for:
-  - Local ID (Student Number)
-  - Student Name (First, Last)
-  - Grade Level
-  - Exam Type (FCLE)
-  - Test Date and Time
-  - Room Assignment
-
-> In a real deployment, you would replace this demo file with your own secure data source and keep any real student data **out** of the public repository.
-
-## 🎨 Design
-
-Clean, professional interface with FLHS branding and blue color scheme.
+This will start `live-server` on port `8080` and open `index.html` in your browser.
 
 ---
 
-**Designed by RJ Ramautar**
+### Usage Notes
+
+- Replace `data/demo-data.csv` with real testing data before deployment.  
+- Ensure that student information is handled in accordance with **school and district privacy policies**.  
+- This repository is intended as a **demo and portfolio project**; adapt it to your production environment and security requirements.
+
+---
+
+### About the Author
+
+Created by **RJ Ramautar** as a practical tool for Fort Lauderdale High School testing operations and as a professional portfolio project.  
+
+If you found this helpful or would like to collaborate, feel free to connect with me on LinkedIn and reference this repository.
+
+---
+
+### License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
